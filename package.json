@@ -41,7 +41,9 @@
   "workspaces": [
     "packages/*",
     "apps/*",
-    "libs/*"
+    "libs/*",
+    "reservation",
+    "reservation-e2e"
   ],
   "dependencies": {
     "@etm-pass/common": "file:libs/common",
@@ -52,6 +54,8 @@
     "@nestjs/swagger": "^11.2.0",
     "@nestjs/typeorm": "^11.0.0",
     "axios": "^1.6.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
     "pg": "^8.16.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
