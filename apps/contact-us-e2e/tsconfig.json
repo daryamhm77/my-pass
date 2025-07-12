@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "out-tsc/@my-pass/reservations-e2e",
+    "outDir": "out-tsc/@my-pass/contact-us-e2e",
     "esModuleInterop": true,
     "noUnusedLocals": false,
     "noImplicitAny": false

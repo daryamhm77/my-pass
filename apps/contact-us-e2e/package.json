@@ -1,10 +1,10 @@
 {
-  "name": "@my-pass/reservations-e2e",
+  "name": "@my-pass/contact-us-e2e",
   "version": "0.0.1",
   "private": true,
   "nx": {
     "implicitDependencies": [
-      "@my-pass/reservations"
+      "@my-pass/contact-us"
     ],
     "targets": {
       "e2e": {
@@ -13,12 +13,12 @@
           "{projectRoot}/test-output/jest/coverage"
         ],
         "options": {
-          "jestConfig": "apps/reservations-e2e/jest.config.ts",
+          "jestConfig": "apps/contact-us-e2e/jest.config.ts",
           "passWithNoTests": true
         },
         "dependsOn": [
-          "@my-pass/reservations:build",
-          "@my-pass/reservations:serve"
+          "@my-pass/contact-us:build",
+          "@my-pass/contact-us:serve"
         ]
       }
     }

@@ -1,5 +1,5 @@
 {
-  "name": "@my-pass/reservations",
+  "name": "@my-pass/contact-us",
   "version": "0.0.1",
   "private": true,
   "nx": {
@@ -28,15 +28,15 @@
           "build"
         ],
         "options": {
-          "buildTarget": "@my-pass/reservations:build",
+          "buildTarget": "@my-pass/contact-us:build",
           "runBuildTargetDependencies": false
         },
         "configurations": {
           "development": {
-            "buildTarget": "@my-pass/reservations:build:development"
+            "buildTarget": "@my-pass/contact-us:build:development"
           },
           "production": {
-            "buildTarget": "@my-pass/reservations:build:production"
+            "buildTarget": "@my-pass/contact-us:build:production"
           }
         }
       },

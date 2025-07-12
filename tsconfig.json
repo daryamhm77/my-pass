@@ -19,10 +19,10 @@
       "path": "./reservation"
     },
     {
-      "path": "./apps/reservations-e2e"
+      "path": "./apps/contact-us-e2e"
     },
     {
-      "path": "./apps/contact"
+      "path": "./apps/contact-us"
     }
   ]
 }

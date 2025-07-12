@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { ContactRepository } from './contatct.repository';
-import { CreateContactMessageDto } from './dto/create-contact.dto';
-import { ContactMessage } from './entity/contact.entity';
+import { CreateContactMessageDto } from '../dto/create-contact.dto';
+import { ContactMessage } from '../entity/contact.entity';
+import { ContactRepository } from '../repository/contatct.repository';
 
 @Injectable()
 export class ContactService {
