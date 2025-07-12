@@ -11,6 +11,18 @@
     },
     {
       "path": "./libs/common"
+    },
+    {
+      "path": "./reservation-e2e"
+    },
+    {
+      "path": "./reservation"
+    },
+    {
+      "path": "./apps/contact-us-e2e"
+    },
+    {
+      "path": "./apps/contact-us"
     }
   ]
 }

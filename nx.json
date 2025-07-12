@@ -52,7 +52,12 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["apps/gateway-e2e/**/*"]
+      "exclude": [
+        "apps/gateway-e2e/**/*",
+        "reservation-e2e/**/*",
+        "apps/reservations-e2e/**/*",
+        "apps/contact-us-e2e/**/*"
+      ]
     },
     {
       "plugin": "@nx/js/typescript",

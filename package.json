@@ -2,7 +2,9 @@
   "name": "@my-pass/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky install"
+  },
   "private": true,
   "devDependencies": {
     "@eslint/js": "^9.8.0",
@@ -24,6 +26,7 @@
     "@types/node": "~18.16.9",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
+    "husky": "^8.0.0",
     "jest": "^29.7.0",
     "jest-environment-node": "^29.7.0",
     "nx": "21.2.2",
@@ -38,14 +41,31 @@
   "workspaces": [
     "packages/*",
     "apps/*",
-    "libs/*"
+    "libs/*",
+    "reservation",
+    "reservation-e2e"
   ],
   "dependencies": {
+    "@etm-pass/common": "file:libs/common",
     "@nestjs/common": "^11.0.0",
+    "@nestjs/config": "^4.0.2",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
+    "@nestjs/swagger": "^11.2.0",
+    "@nestjs/typeorm": "^11.0.0",
     "axios": "^1.6.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "pg": "^8.16.3",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.0"
+    "rxjs": "^7.8.0",
+    "swagger-ui": "^5.26.0",
+    "typeorm": "^0.3.25"
+  },
+  "lint-staged": {
+    "*.{ts,js,json}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
