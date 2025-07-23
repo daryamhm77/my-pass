@@ -7,9 +7,7 @@ import { ContactRepository } from '../repository/contatct.repository';
 export class ContactService {
   constructor(private readonly contactRepository: ContactRepository) {}
 
-  async createContact(dto: CreateContactMessageDto): Promise<ContactMessage> {
-    return this.contactRepository.create(dto);
-  }
+  ضض;
 
   async getContactById(id: string): Promise<ContactMessage> {
     return this.contactRepository.findOne({ id });
