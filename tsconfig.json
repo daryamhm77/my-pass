@@ -23,6 +23,18 @@
     },
     {
       "path": "./apps/contact-us"
+    },
+    {
+      "path": "./apps/payments-e2e"
+    },
+    {
+      "path": "./apps/payments"
+    },
+    {
+      "path": "./apps/notifications-e2e"
+    },
+    {
+      "path": "./apps/notifications"
     }
   ]
 }
