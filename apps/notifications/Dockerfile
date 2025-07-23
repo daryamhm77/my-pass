@@ -14,8 +14,8 @@ COPY package*.json .npmrc ./
 COPY apps/notifications/package.json ./apps/notifications/
 COPY libs/common/package.json ./libs/common/
 
-# Install dependencies
-RUN npm ci
+# Install dependencies with legacy peer deps and no optional
+RUN npm install --legacy-peer-deps --no-optional
 
 # ---------- Development Stage ----------
 FROM dependencies AS development
@@ -38,7 +38,7 @@ WORKDIR /usr/src/app
 COPY package*.json .npmrc ./
 COPY apps/notifications/package.json ./apps/notifications/
 COPY libs/common/package.json ./libs/common/
-RUN npm ci --only=production
+RUN npm install --legacy-peer-deps --no-optional --omit=dev
 
 # Copy built application
 COPY --from=development /usr/src/app/dist ./dist
