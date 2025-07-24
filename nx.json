@@ -58,7 +58,8 @@
         "apps/reservations-e2e/**/*",
         "apps/contact-us-e2e/**/*",
         "apps/payments-e2e/**/*",
-        "apps/notifications-e2e/**/*"
+        "apps/notifications-e2e/**/*",
+        "apps/epr-e2e/**/*"
       ]
     },
     {
