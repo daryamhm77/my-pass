@@ -19,7 +19,6 @@ WORKDIR /workspace
 COPY package.json package-lock.json ./
 RUN npm install --omit=dev --ignore-scripts
 
-COPY --from=development /workspace/dist ./dist
-
+COPY --from=development /workspace/apps/payments/dist ./dist/apps/payments
 CMD ["node", "dist/apps/payments/main"]
     
