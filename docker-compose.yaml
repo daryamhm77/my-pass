@@ -1,25 +1,47 @@
 version: "3.9"
 
 services:
-  payments:
-    build:
-      context: .
-      dockerfile: ./apps/payments/Dockerfile
-      target: development 
-    command: npm run start:dev:payments
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
-    env_file:
-      - ./apps/payments/.env
+  postgres:
+    image: postgres:16-alpine
+    container_name: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-notifications}
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
     ports:
-      - "3003:3003" 
-    depends_on:
-      postgres:
-        condition: service_healthy
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     networks:
       - backend
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres} -d ${DB_NAME:-notifications}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
     restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: user
+      RABBITMQ_DEFAULT_PASS: password
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - backend
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 30s
 
   notifications:
     build:
@@ -27,6 +49,7 @@ services:
       dockerfile: ./apps/notifications/Dockerfile
       target: development
     command: npm run start:dev:notifications
+    container_name: notifications
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
@@ -34,7 +57,7 @@ services:
       - ./apps/notifications/.env
     ports:
       - "3004:3004"
-      - "3004:3004/udp"  # For WebSocket
+      - "3004:3004/udp"  # Optional for WebSocket
     depends_on:
       rabbitmq:
         condition: service_healthy
@@ -50,46 +73,32 @@ services:
       retries: 3
       start_period: 30s
 
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"  # AMQP protocol port
-      - "15672:15672"  # Management UI port
-    environment:
-      - RABBITMQ_DEFAULT_USER=user
-      - RABBITMQ_DEFAULT_PASS=password
+  payments:
+    build:
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: development
+    command: npm run start:dev:payments
+    container_name: payments
     volumes:
-      - rabbitmq_data:/var/lib/rabbitmq
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    env_file:
+      - ./apps/payments/.env
+    ports:
+      - "3003:3003"
+    depends_on:
+      postgres:
+        condition: service_healthy
     networks:
       - backend
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      test: ["CMD", "curl", "-f", "http://localhost:3003/health"]
       interval: 30s
       timeout: 3s
       retries: 3
       start_period: 30s
-
-  postgres:
-    image: postgres:16-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: ${DB_NAME:-notifications}
-      POSTGRES_USER: ${DB_USERNAME:-postgres}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    networks:
-      - backend
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres} -d ${DB_NAME:-notifications}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
 
 networks:
   backend:
