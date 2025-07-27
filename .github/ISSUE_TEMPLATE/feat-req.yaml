@@ -1,0 +1,55 @@
+name: ✨ Feature Request
+description: ایده‌ای برای بهبود یا افزودن قابلیت جدید داری؟ اینجا مطرح کن
+title: "[Feature]: "
+labels: [enhancement, needs-discussion]
+assignees: ''
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        قبل از ایجاد فیچر لطفاً بررسی کن که آیا قبلاً مطرح شده یا نه.
+
+  - type: input
+    id: module
+    attributes:
+      label: ماژول مربوطه
+      placeholder: Auth, Product, QRCode, User, ScanValidation
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: توضیح کلی از قابلیت
+      placeholder: |
+        مثلاً: می‌خواهیم امکان اسکن QR فقط توسط کاربران با نقش inspector فعال باشه.
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: چه مشکلی رو حل می‌کنه یا چه نیازی رو پوشش می‌ده؟
+      placeholder: کاربران unauthorized هم می‌تونن اسکن کنن، که خلاف سیاست امنیتیه.
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested_solution
+    attributes:
+      label: راه‌حل یا پیشنهاد اجرایی
+      placeholder: Middleware برای بررسی نقش کاربر هنگام اسکن
+    validations:
+      required: false
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: اهمیت یا اولویت
+      options:
+        - خیلی مهم (امنیت، دیتا یا تجربه کاربری حیاتی)
+        - متوسط (مفید ولی نه فوری)
+        - کم اهمیت (Nice-to-have)
+    validations:
+      required: true

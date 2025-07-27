@@ -1,0 +1,86 @@
+name: 🐛 Bug Report
+description: مشکلی در عملکرد سیستم یا یکی از سرویس‌ها پیدا شده؟ اینجا گزارش بده
+title: "[Bug]: "
+labels: [bug, needs-triage]
+assignees: ''
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        لطفاً اطلاعات زیر رو دقیق پر کن تا بتونیم سریع‌تر مشکل رو پیدا کنیم.
+
+  - type: input
+    id: affected_module
+    attributes:
+      label: ماژول یا بخش مشکل‌دار
+      placeholder: Auth, QRCode, Product, Payment, Notification, etc.
+    validations:
+      required: true
+
+  - type: input
+    id: endpoint
+    attributes:
+      label: Endpoint یا مسیر
+      placeholder: POST /auth/login یا GET /products/:id
+    validations:
+      required: false
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: خلاصه مشکل
+      placeholder: به طور خلاصه بگو چه مشکلی هست و کجا اتفاق میفته
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: مراحل بازتولید مشکل
+      placeholder: |
+        1. لاگین کن با نقش admin
+        2. برو به /products
+        3. خطای 500 دریافت می‌کنی
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: انتظار داشتی چه اتفاقی بیفته؟
+    validations:
+      required: false
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: چه اتفاقی افتاد؟
+    validations:
+      required: false
+
+  - type: input
+    id: environment
+    attributes:
+      label: محیط اجرا
+      placeholder: local, staging, production
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: لاگ‌ها یا پیام‌های خطا (در صورت وجود)
+      placeholder: |
+        Nest can't resolve dependencies of the AuthService...
+        یا خروجی console.log / logger
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: نسخه پروژه (اختیاری)
+      placeholder: v1.2.3 یا latest commit hash
+    validations:
+      required: false
