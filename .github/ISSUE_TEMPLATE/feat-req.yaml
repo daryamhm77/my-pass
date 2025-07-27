@@ -2,7 +2,7 @@ name: ✨ Feature Request
 description: ایده‌ای برای بهبود یا افزودن قابلیت جدید داری؟ اینجا مطرح کن
 title: "[Feature]: "
 labels: [enhancement, needs-discussion]
-assignees: ''
+assignees: []
 
 body:
   - type: markdown
