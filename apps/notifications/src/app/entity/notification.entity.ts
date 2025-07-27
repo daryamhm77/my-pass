@@ -1,21 +1,10 @@
-import {
-  Entity,
-  BaseEntity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-  Index,
-  DeleteDateColumn,
-} from 'typeorm';
+import { Entity, Column, Index, DeleteDateColumn } from 'typeorm';
 import { NotificationChannel } from '../enums/ notification-channel.enum';
 import { NotificationType } from '../enums/ notification-type.enum';
+import { BaseEntity } from '@etm-pass/common';
 
 @Entity('notifications')
 export class Notification extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
   @Index()
   @Column()
   userId: number;
@@ -50,13 +39,6 @@ export class Notification extends BaseEntity {
 
   @Column({ type: 'timestamp', nullable: true })
   expiresAt?: Date;
-
-  @CreateDateColumn()
-  @Index()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 
   @DeleteDateColumn()
   deletedAt?: Date;
