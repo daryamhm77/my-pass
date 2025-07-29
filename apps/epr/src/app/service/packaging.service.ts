@@ -1,10 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { PackagingRepository } from '../repository/packaging.repository';
 import { Packaging } from '../entity/packaging.entity';
 import { CreatePackagingDto } from '../dto/create-packaging.dto';
-import { UpdatePackagingDto } from '../dto/update-packaging.dto';
-import { PackagingRepository } from '../repository/packaging.repository';
 import { FindOptionsWhere } from 'typeorm';
 import { MaterialType } from '../enums/material-type.enum';
+import { PackagingStatistics } from '../interfaces/packaging-statistics.interface';
+import { UpdatePackagingDto } from '../dto/update-packaging.dto';
 
 @Injectable()
 export class PackagingService {
@@ -61,13 +62,15 @@ export class PackagingService {
     return await this.packagingRepository.findByCountry(countryId);
   }
 
-  async findByMaterialType(materialType: string): Promise<Packaging[]> {
+  async findByMaterialType(materialType: MaterialType): Promise<Packaging[]> {
     return await this.packagingRepository.findByMaterialType(
       materialType as MaterialType
     );
   }
 
-  async getPackagingStatistics(countryId?: string) {
+  async getPackagingStatistics(
+    countryId?: string
+  ): Promise<PackagingStatistics> {
     return await this.packagingRepository.getPackagingStatistics(countryId);
   }
 

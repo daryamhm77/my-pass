@@ -4,6 +4,7 @@ import { Repository, FindOptionsWhere } from 'typeorm';
 import { AbstractRepository } from '@etm-pass/common';
 import { Packaging } from '../entity/packaging.entity';
 import { MaterialType } from '../enums/material-type.enum';
+import { PackagingStatistics } from '../interfaces/packaging-statistics.interface';
 
 @Injectable()
 export class PackagingRepository extends AbstractRepository<Packaging> {
@@ -28,7 +29,9 @@ export class PackagingRepository extends AbstractRepository<Packaging> {
     return this.findAll(where);
   }
 
-  async getPackagingStatistics(countryId?: string) {
+  async getPackagingStatistics(
+    countryId?: string
+  ): Promise<PackagingStatistics> {
     const queryBuilder = this.repository.createQueryBuilder('packaging');
 
     if (countryId) {
@@ -37,19 +40,16 @@ export class PackagingRepository extends AbstractRepository<Packaging> {
 
     const stats = await queryBuilder
       .select([
-        'SUM(packaging.totalWeight)',
-        'total_weight',
-        'AVG(packaging.recycledContent)',
-        'avg_recycled_content',
-        'COUNT(*)',
-        'total_packages',
+        'SUM(packaging.totalWeight) as total_weight',
+        'AVG(packaging.recycledContent) as avg_recycled_content',
+        'COUNT(*) as total_packages',
       ])
       .getRawOne();
 
     return {
-      totalWeight: parseFloat(stats.total_weight) || 0,
-      averageRecycledContent: parseFloat(stats.avg_recycled_content) || 0,
-      totalPackages: parseInt(stats.total_packages) || 0,
+      totalWeight: +(stats.total_weight ?? 0),
+      averageRecycledContent: +(stats.avg_recycled_content ?? 0),
+      totalPackages: +(stats.total_packages ?? 0),
     };
   }
 }

@@ -5,7 +5,9 @@ import { Country } from './country.entity';
 
 @Entity('fees')
 export class Fee extends BaseEntity {
-  @ManyToOne(() => Country)
+  @ManyToOne(() => Country, (country) => country.fees, {
+    onDelete: 'CASCADE',
+  })
   country: Country;
 
   @Column({ type: 'enum', enum: MaterialType })

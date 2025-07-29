@@ -31,7 +31,9 @@ export class Packaging extends BaseEntity {
   @Column('boolean', { default: false })
   isCompleted: boolean;
 
-  @ManyToOne(() => Country)
+  @ManyToOne(() => Country, (country) => country.packagings, {
+    onDelete: 'CASCADE',
+  })
   country: Country;
 
   @Column('date')

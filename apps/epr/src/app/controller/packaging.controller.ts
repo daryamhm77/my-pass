@@ -21,6 +21,8 @@ import { PackagingService } from '../service/packaging.service';
 import { CreatePackagingDto } from '../dto/create-packaging.dto';
 import { UpdatePackagingDto } from '../dto/update-packaging.dto';
 import { Packaging } from '../entity/packaging.entity';
+import { PackagingStatistics } from '../interfaces/packaging-statistics.interface';
+import { MaterialType } from '../enums/material-type.enum';
 
 @ApiTags('Packaging')
 @Controller('packaging')
@@ -59,7 +61,7 @@ export class PackagingController {
   })
   async findAll(
     @Query('countryId') countryId?: string,
-    @Query('materialType') materialType?: string
+    @Query('materialType') materialType?: MaterialType
   ): Promise<Packaging[]> {
     if (countryId) {
       return await this.packagingService.findByCountry(countryId);
@@ -130,8 +132,11 @@ export class PackagingController {
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Successfully retrieved statistics',
+    type: PackagingStatistics,
   })
-  async getStatistics(@Query('countryId') countryId?: string) {
+  async getStatistics(
+    @Query('countryId') countryId?: string
+  ): Promise<PackagingStatistics> {
     return await this.packagingService.getPackagingStatistics(countryId);
   }
 
